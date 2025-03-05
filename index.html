@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-image: url('https://source.unsplash.com/random/1600x900');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        #qrcode {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            display: inline-block;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>QR Code Generator</h2>
+        <input type="text" id="text" placeholder="Enter text or URL" />
+        <br>
+        <button onclick="generateQR()">Generate QR Code</button>
+        <br>
+        <canvas id="qrcode"></canvas>
+    </div>
+    
+    <script>
+        function generateQR() {
+            let textValue = document.getElementById('text').value;
+            if (textValue.trim() === '') {
+                alert('Please enter text or URL');
+                return;
+            }
+            let qr = new QRious({
+                element: document.getElementById('qrcode'),
+                value: textValue,
+                size: 200
+            });
+        }
+    </script>
+</body>
+</html>
