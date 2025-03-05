@@ -36,6 +36,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 10px;
         }
         button:hover {
             background: #e68900;
@@ -46,6 +47,16 @@
             background: white;
             display: inline-block;
             border-radius: 10px;
+        }
+        #download {
+            display: none;
+            text-decoration: none;
+            background: #4CAF50;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
@@ -58,6 +69,8 @@
         <button onclick="generateQR()">Generate QR Code</button>
         <br>
         <canvas id="qrcode"></canvas>
+        <br>
+        <button id="download" onclick="downloadQR()">Download QR Code</button>
     </div>
     
     <script>
@@ -67,11 +80,26 @@
                 alert('Please enter text or URL');
                 return;
             }
+            
+            let qrCanvas = document.getElementById('qrcode');
             let qr = new QRious({
-                element: document.getElementById('qrcode'),
+                element: qrCanvas,
                 value: textValue,
                 size: 200
             });
+            
+            document.getElementById('download').style.display = "inline-block";
+        }
+
+        function downloadQR() {
+            let qrCanvas = document.getElementById('qrcode');
+            let qrImage = qrCanvas.toDataURL("image/png");
+            let downloadLink = document.createElement("a");
+            downloadLink.href = qrImage;
+            downloadLink.download = "qrcode.png";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
     </script>
 </body>
